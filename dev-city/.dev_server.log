@@ -60,3 +60,8 @@
 ✓ Compiled in 1303ms
 ✓ Compiled in 739ms
 ✓ Compiled in 1936ms
+ GET / 200 in 102ms (compile: 83ms, render: 19ms)
+ GET /api/auth/session 200 in 6ms (compile: 2ms, render: 3ms)
+ GET /api/auth/session 200 in 76ms (compile: 57ms, render: 20ms)
+ GET / 200 in 305ms (compile: 215ms, render: 90ms)
+ GET /api/auth/session 200 in 27ms (compile: 6ms, render: 21ms)
