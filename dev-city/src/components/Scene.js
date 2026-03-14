@@ -13,7 +13,6 @@ import DevProfile from "../components/DevProfile";
 import Leaderboard from "../components/Leaderboard";
 import SearchBar from "../components/SearchBar";
 import Guestbook from "../components/Guestbook";
-import CustomCursor from "../components/CustomCursor";
 import { aiDevs, webDevs, mobileDevs } from "../data/developers";
 import { Stars, Environment, ContactShadows, Float, MeshDistortMaterial } from "@react-three/drei";
 import { useSession } from "next-auth/react";
@@ -230,14 +229,14 @@ export default function Home() {
           <div className="flex flex-col gap-2 pointer-events-auto">
             <button 
               onClick={handleEscBack}
-              className="px-4 py-2 text-[10px] uppercase tracking-widest transition-all cursor-pointer border border-white/20 text-white bg-black/40 hover:bg-white/10 shadow-[4px_4px_0_0_rgba(255,255,255,0.1)]"
+              className="px-2 py-1 text-[8px] uppercase tracking-widest transition-all cursor-pointer border border-white/20 text-white bg-black/40 hover:bg-white/10"
               style={{ fontFamily: "'Press Start 2P', cursive" }}
             >
-              ← ESC BACK
+              ← ESC
             </button>
             {activePlanet && !selectedDeveloper && (
-              <span className="text-[8px] text-indigo-200/60 uppercase tracking-widest ml-1">
-                Viewing {activePlanet.label}
+              <span className="text-[7px] text-indigo-400/60 uppercase tracking-widest ml-1">
+                {activePlanet.label}
               </span>
             )}
           </div>
@@ -273,8 +272,6 @@ export default function Home() {
         theme={theme} 
         onSearchResult={handleSearchSelect}
       />
-
-      <CustomCursor />
     </div>
   );
 }
