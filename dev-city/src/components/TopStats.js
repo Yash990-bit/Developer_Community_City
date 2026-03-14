@@ -1,9 +1,13 @@
 import { Github, Radio, Users } from "lucide-react";
 
-export default function TopStats() {
+export default function TopStats({ totalStars = 0, totalInhabitants = 0, liveCount = 0 }) {
   const textColor = "text-white";
   const borderColor = "border-white/10";
   const bgColor = "bg-black/50";
+
+  const formatNumber = (num) => {
+    return num.toLocaleString();
+  };
 
   const StatItem = ({ icon: Icon, value, label, color, isLive }) => (
     <div className={`flex items-center gap-2 px-3 py-1 ${bgColor} ${borderColor} border rounded-sm backdrop-blur-md relative overflow-hidden`}>
@@ -29,9 +33,9 @@ export default function TopStats() {
         }
       `}</style>
       <div className="fixed top-12 right-12 flex items-center gap-3 pointer-events-auto" style={{ fontFamily: "'Press Start 2P', cursive" }}>
-        <StatItem icon={Github} value="3,695" label="Stars" color="text-yellow-400" />
-        <StatItem icon={Radio} value="85" label="Live" color="text-green-400" isLive={true} />
-        <StatItem icon={Users} value="3" label="Inhabitants" color="text-cyan-400" />
+        <StatItem icon={Github} value={formatNumber(totalStars)} label="Stars" color="text-yellow-400" />
+        <StatItem icon={Radio} value={formatNumber(liveCount)} label="Live" color="text-green-400" isLive={true} />
+        <StatItem icon={Users} value={formatNumber(totalInhabitants)} label="Residents" color="text-cyan-400" />
       </div>
     </>
   );

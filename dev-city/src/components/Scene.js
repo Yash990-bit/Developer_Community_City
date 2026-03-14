@@ -137,6 +137,21 @@ export default function Home() {
     setSelectedDeveloper(developerData);
   };
 
+  // 3. Dynamic Stats Calculation
+  const cityStats = useMemo(() => {
+    const totalStars = inhabitants.reduce((sum, dev) => sum + (dev.stats?.stars || 0), 0);
+    const totalInhabitants = inhabitants.length;
+    
+    // "Live" = Users visited in the last 24 hours
+    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+    const liveCount = inhabitants.filter(dev => {
+      if (!dev.last_visited) return false;
+      return new Date(dev.last_visited) > oneDayAgo;
+    }).length;
+
+    return { totalStars, totalInhabitants, liveCount };
+  }, [inhabitants]);
+
   const handleCloseProfile = () => {
     setActiveBuilding(null);
     setActiveDeveloperId(null);
@@ -243,7 +258,11 @@ export default function Home() {
         )}
       </div>
 
-      <TopStats theme="night" />
+      <TopStats 
+        totalStars={cityStats.totalStars}
+        totalInhabitants={cityStats.totalInhabitants}
+        liveCount={cityStats.liveCount}
+      />
       <EventTicker theme="night" inhabitants={inhabitants} />
       <UIControls theme="night" onBack={handleEscBack} />
       
