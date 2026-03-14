@@ -30,6 +30,7 @@ export default function Home() {
   const [activeDeveloperId, setActiveDeveloperId] = useState(null);
   const [selectedDeveloper, setSelectedDeveloper] = useState(null);
   const [activePlanet, setActivePlanet] = useState(null);
+  const [liveEvents, setLiveEvents] = useState([]);
 
   const isNight = theme === "night";
 
@@ -130,6 +131,53 @@ export default function Home() {
     }
     handleLogin();
   }, [session]);
+
+  // 3. Real-time Subscriptions: Listen for new citizens and transmissions
+  useEffect(() => {
+    if (!supabase) return;
+
+    const devsChannel = supabase
+      .channel('realtime:developers')
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'developers' },
+        (payload) => {
+          const newDev = payload.new;
+          setLiveEvents(prev => [{
+            text: `@${newDev.github_username} just landed in the city!`,
+            icon: "🛸",
+            timestamp: Date.now()
+          }, ...prev.slice(0, 9)]);
+          
+          setInhabitants(prev => {
+            if (prev.find(d => d.github_username === newDev.github_username)) return prev;
+            return [...prev, newDev];
+          });
+        }
+      )
+      .subscribe();
+
+    const msgsChannel = supabase
+      .channel('realtime:messages')
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'planet_messages' },
+        (payload) => {
+          const newMsg = payload.new;
+          setLiveEvents(prev => [{
+            text: `@${newMsg.github_username} transmitted a new message`,
+            icon: "📡",
+            timestamp: Date.now()
+          }, ...prev.slice(0, 9)]);
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(devsChannel);
+      supabase.removeChannel(msgsChannel);
+    };
+  }, []);
 
   const handleBuildingClick = (meshRef, developerData) => {
     setActiveBuilding(meshRef);
@@ -263,7 +311,7 @@ export default function Home() {
         totalInhabitants={cityStats.totalInhabitants}
         liveCount={cityStats.liveCount}
       />
-      <EventTicker theme="night" inhabitants={inhabitants} />
+      <EventTicker theme="night" inhabitants={inhabitants} liveEvents={liveEvents} />
       <UIControls theme="night" onBack={handleEscBack} />
       
       <div className="fixed top-24 right-10 pointer-events-auto z-40">
