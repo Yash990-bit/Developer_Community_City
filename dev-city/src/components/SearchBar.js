@@ -18,7 +18,7 @@ export default function SearchBar({ inhabitants, theme, onSearchResult }) {
   };
 
   return (
-    <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-72">
+    <div className="fixed top-12 left-1/2 -translate-x-1/2 z-50 w-72">
       <div className={`flex items-center gap-2 px-3 py-2 rounded-sm border backdrop-blur-xl transition-all ${
         isNight 
           ? 'bg-black/70 border-cyan-500/20 text-white' 

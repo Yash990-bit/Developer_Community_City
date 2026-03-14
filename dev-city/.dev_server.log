@@ -65,3 +65,10 @@
  GET /api/auth/session 200 in 76ms (compile: 57ms, render: 20ms)
  GET / 200 in 305ms (compile: 215ms, render: 90ms)
  GET /api/auth/session 200 in 27ms (compile: 6ms, render: 21ms)
+✓ Compiled in 869ms
+✓ Compiled in 1223ms
+✓ Compiled in 447ms
+✓ Compiled in 527ms
+✓ Compiled in 164ms
+ GET / 200 in 2.0s (compile: 1844ms, render: 187ms)
+ GET /api/auth/session 200 in 142ms (compile: 111ms, render: 31ms)

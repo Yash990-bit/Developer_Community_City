@@ -48,7 +48,7 @@ export default function Leaderboard({ inhabitants, theme, onSelectDeveloper }) {
   const medals = ["🥇", "🥈", "🥉"];
 
   return (
-    <div className={`fixed top-24 left-6 z-50 transition-all duration-300 ${isOpen ? 'w-64' : 'w-10'}`}>
+    <div className={`fixed top-48 left-12 z-50 transition-all duration-300 ${isOpen ? 'w-64' : 'w-10'}`}>
       {/* Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
