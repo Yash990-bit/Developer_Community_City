@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
 import SolarSystem from "../components/SolarSystem";
 import District from "../components/District";
-import { classifyDeveloper } from "../lib/domainClassifier";
+import { classifyDeveloper, PLANETS } from "../lib/domainClassifier";
 import CameraControls from "../components/CameraControls";
 import Building from "../components/Building";
 import LoginButton from "../components/LoginButton";
@@ -127,6 +127,17 @@ export default function Home() {
             const others = prev.filter(u => u.github_username !== newDeveloper.github_username);
             return [newDeveloper, ...others];
           });
+
+          // AUTO-LANDING: Take the user to their planet and building
+          const planetId = classifyDeveloper(newDeveloper);
+          const planetConfig = PLANETS.find(p => p.id === planetId);
+          if (planetConfig) {
+            setActivePlanet(planetConfig);
+            // Small delay to ensure the building is rendered before zooming
+            setTimeout(() => {
+              setActiveDeveloperId(stats.username);
+            }, 500);
+          }
         }
       }
     }
