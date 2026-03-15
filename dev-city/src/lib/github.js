@@ -21,8 +21,20 @@ export async function getGitHubStats(username, accessToken) {
       Accept: "application/vnd.github.v3+json",
     };
 
+    // 0. If accessToken is provided but username is name/id or missing, get the true login
+    let githubUsername = username;
+    if (accessToken) {
+      const selfRes = await fetch(`https://api.github.com/user`, { headers });
+      const selfData = await selfRes.json();
+      if (selfData.login) {
+        githubUsername = selfData.login;
+      }
+    }
+
+    if (!githubUsername) return null;
+
     // 1. Get User Profile (Repos, Followers, etc.)
-    const userRes = await fetch(`https://api.github.com/users/${username}`, { headers });
+    const userRes = await fetch(`https://api.github.com/users/${githubUsername}`, { headers });
     const userData = await userRes.json();
 
     // 2. Get Total Stars received and Languages

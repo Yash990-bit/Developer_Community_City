@@ -31,6 +31,7 @@ export default function Home() {
   const [selectedDeveloper, setSelectedDeveloper] = useState(null);
   const [activePlanet, setActivePlanet] = useState(null);
   const [liveEvents, setLiveEvents] = useState([]);
+  const [movement, setMovement] = useState({ forward: false, backward: false, left: false, right: false });
 
   const isNight = theme === "night";
 
@@ -120,11 +121,8 @@ export default function Home() {
           
           // Always update local state so they appear immediately
           setInhabitants((prev) => {
-            const exists = prev.find(u => u.github_username === newDeveloper.github_username);
-            if (exists) {
-              return prev.map(u => u.github_username === newDeveloper.github_username ? { ...u, stats: newDeveloper.stats } : u);
-            }
-            return [...prev, newDeveloper];
+            const others = prev.filter(u => u.github_username !== newDeveloper.github_username);
+            return [newDeveloper, ...others];
           });
         }
       }
@@ -140,18 +138,25 @@ export default function Home() {
       .channel('realtime:developers')
       .on(
         'postgres_changes',
-        { event: 'INSERT', schema: 'public', table: 'developers' },
+        { event: '*', schema: 'public', table: 'developers' },
         (payload) => {
           const newDev = payload.new;
+          const isUpdate = payload.eventType === 'UPDATE';
+          
           setLiveEvents(prev => [{
-            text: `@${newDev.github_username} just landed in the city!`,
-            icon: "🛸",
+            text: isUpdate ? `@${newDev.github_username} updated their profile!` : `@${newDev.github_username} just landed in the city!`,
+            icon: isUpdate ? "🛠️" : "🛸",
             timestamp: Date.now()
           }, ...prev.slice(0, 9)]);
           
           setInhabitants(prev => {
-            if (prev.find(d => d.github_username === newDev.github_username)) return prev;
-            return [...prev, newDev];
+            const existing = prev.find(d => d.github_username === newDev.github_username);
+            if (existing) {
+              // Update existing and move to front if it's the current session user
+              const others = prev.filter(d => d.github_username !== newDev.github_username);
+              return [newDev, ...others];
+            }
+            return [newDev, ...prev];
           });
         }
       )
@@ -276,12 +281,13 @@ export default function Home() {
           activeBuilding={activeBuilding} 
           activePlanet={activePlanet} 
           activeDeveloperId={activeDeveloperId}
+          movement={movement}
         />
       </Canvas>
       
       {/* Premium UI Overlay */}
       <div className="fixed top-12 left-12 pointer-events-none z-50">
-        <h1 className="text-4xl font-bold tracking-[0.2em] uppercase mb-1 text-white" style={{ fontFamily: "'Press Start 2P', cursive" }}>
+        <h1 className="text-4xl font-black tracking-tighter uppercase mb-1 text-white">
           Dev City
         </h1>
         <p className="text-[10px] uppercase tracking-[0.5em] text-indigo-400 mb-6">
@@ -312,7 +318,7 @@ export default function Home() {
         liveCount={cityStats.liveCount}
       />
       <EventTicker theme="night" inhabitants={inhabitants} liveEvents={liveEvents} />
-      <UIControls theme="night" onBack={handleEscBack} />
+      <UIControls theme="night" onBack={handleEscBack} setMovement={setMovement} />
       
       <div className="fixed top-24 right-10 pointer-events-auto z-40">
         <LoginButton />

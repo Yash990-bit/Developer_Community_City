@@ -128,7 +128,7 @@ export default function Building({
         {hovered && (
           <Html distanceFactor={15}>
             <div className="bg-black/95 text-white p-3 rounded-sm border border-white/20 whitespace-nowrap pointer-events-none min-w-[140px]" 
-                 style={{ fontFamily: "'Press Start 2P', cursive", fontSize: '6px', zIndex: 100 }}>
+                 style={{ fontSize: '10px', zIndex: 100 }}>
               <div className="flex items-center gap-2 mb-2">
                 <span>{tier.emoji}</span>
                 <span className="text-blue-400">{github_username || "Citizen"}</span>

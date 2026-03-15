@@ -30,8 +30,7 @@ export default function LoginButton() {
   return (
     <button
       onClick={() => signIn()}
-      className="bg-white text-black px-6 py-2 font-bold uppercase tracking-widest hover:bg-green-400 transition-colors pointer-events-auto shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-2 border-black"
-      style={{ fontFamily: "'Press Start 2P', cursive", fontSize: '10px' }}
+      className="bg-white text-black px-6 py-2 font-black uppercase tracking-widest hover:bg-green-400 transition-colors pointer-events-auto shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-2 border-black text-xs"
     >
       Login to City
     </button>

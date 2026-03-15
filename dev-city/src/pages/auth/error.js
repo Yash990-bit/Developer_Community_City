@@ -6,7 +6,7 @@ export default function ErrorPage() {
   const { error } = router.query;
 
   return (
-    <div className="min-h-screen bg-[#050510] flex flex-col items-center justify-center p-4 text-white" style={{ fontFamily: "'Press Start 2P', cursive" }}>
+    <div className="min-h-screen bg-[#050510] flex flex-col items-center justify-center p-4 text-white">
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
         <div className="absolute w-full h-full bg-[url('/textures/block-textures/metro-windows.png')] bg-repeat opacity-30" style={{ backgroundSize: '64px 64px' }} />
       </div>

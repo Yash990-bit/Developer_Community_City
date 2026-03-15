@@ -87,13 +87,13 @@ export default function Guestbook({ activePlanet, theme }) {
       isNight 
         ? 'bg-black/80 border-cyan-500/20 text-white' 
         : 'bg-white/90 border-gray-200 text-black'
-    }`} style={{ height: "400px", fontFamily: "'Press Start 2P', cursive" }}>
+    }`} style={{ height: "400px" }}>
       
       {/* Header */}
       <div className={`p-3 border-b flex items-center justify-between ${isNight ? 'border-cyan-500/20' : 'border-gray-200'}`}>
         <div className="flex items-center gap-2">
           <span className="text-sm">{activePlanet.emoji}</span>
-          <h3 className="text-[8px] uppercase tracking-[0.2em] font-bold" style={{ color: activePlanet.color }}>
+          <h3 className="text-[10px] uppercase tracking-[0.2em] font-black" style={{ color: activePlanet.color }}>
             {activePlanet.label} FREQ
           </h3>
         </div>

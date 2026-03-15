@@ -21,7 +21,6 @@ export default function DevProfile({ developer, onClose, theme }) {
       <div 
         className={`w-full max-w-sm border-2 p-6 relative ${isNight ? 'bg-[#0a0a10] border-indigo-500 shadow-[8px_8px_0px_0px_rgba(79,70,229,0.5)] text-white' : 'bg-white border-blue-500 shadow-[8px_8px_0px_0px_rgba(59,130,246,0.5)] text-black'}`}
         onClick={(e) => e.stopPropagation()}
-        style={{ fontFamily: "'Press Start 2P', cursive" }}
       >
         {/* Close Button */}
         <button 

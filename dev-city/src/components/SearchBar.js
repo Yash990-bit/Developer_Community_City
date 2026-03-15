@@ -30,10 +30,9 @@ export default function SearchBar({ inhabitants, theme, onSearchResult }) {
           value={query}
           onChange={(e) => handleSearch(e.target.value)}
           placeholder="Search developer..."
-          className={`flex-1 bg-transparent outline-none text-[9px] placeholder-gray-500 ${
+          className={`flex-1 bg-transparent outline-none text-[11px] font-bold placeholder-gray-500 ${
             isNight ? 'text-white' : 'text-black'
           }`}
-          style={{ fontFamily: "'Press Start 2P', cursive" }}
         />
       </div>
 
@@ -54,7 +53,7 @@ export default function SearchBar({ inhabitants, theme, onSearchResult }) {
                 isNight ? 'hover:bg-cyan-900/20 text-white' : 'hover:bg-blue-50 text-black'
               }`}
             >
-              <span className="text-[8px] font-bold" style={{ fontFamily: "'Press Start 2P', cursive" }}>
+              <span className="text-[11px] font-black">
                 {dev.github_username}
               </span>
               <span className="text-[7px] opacity-50">

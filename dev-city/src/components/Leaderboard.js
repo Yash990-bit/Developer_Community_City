@@ -57,7 +57,7 @@ export default function Leaderboard({ inhabitants, theme, onSelectDeveloper }) {
             ? 'bg-black/60 border-cyan-500/30 text-cyan-400 hover:bg-cyan-900/30' 
             : 'bg-white/60 border-gray-300 text-gray-700 hover:bg-gray-100'
         }`}
-        style={{ fontFamily: "'Press Start 2P', cursive", fontSize: '10px' }}
+        style={{ fontSize: '14px' }}
       >
         🏆
       </button>
@@ -70,7 +70,7 @@ export default function Leaderboard({ inhabitants, theme, onSelectDeveloper }) {
             : 'bg-white/90 border-gray-200 text-black'
         }`}>
           <div className="p-3 border-b border-white/10 flex justify-between items-center">
-            <h3 className="text-[8px] uppercase tracking-[0.3em] font-bold opacity-60 flex-1" style={{ fontFamily: "'Press Start 2P', cursive" }}>
+            <h3 className="text-[10px] uppercase tracking-[0.3em] font-black opacity-60 flex-1">
               {viewMode === "citizens" ? "Top Builders" : "Top Planets"}
             </h3>
             <button 
@@ -98,9 +98,9 @@ export default function Leaderboard({ inhabitants, theme, onSelectDeveloper }) {
                     {i < 3 ? medals[i] : <span className="text-[8px] opacity-40">{i + 1}</span>}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className={`text-[8px] font-bold truncate ${
+                    <p className={`text-[10px] font-black truncate ${
                       i === 0 ? (isNight ? 'text-yellow-400' : 'text-yellow-600') : ''
-                    }`} style={{ fontFamily: "'Press Start 2P', cursive" }}>
+                    }`}>
                       {dev.github_username}
                     </p>
                     <p className="text-[7px] opacity-50">
@@ -126,8 +126,8 @@ export default function Leaderboard({ inhabitants, theme, onSelectDeveloper }) {
                     {i < 3 ? medals[i] : <span className="text-[8px] opacity-40">{i + 1}</span>}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className={`text-[8px] font-bold truncate`} 
-                       style={{ fontFamily: "'Press Start 2P', cursive", color: planet.color }}>
+                    <p className={`text-[10px] font-black truncate`} 
+                       style={{ color: planet.color }}>
                       {planet.emoji} {planet.label}
                     </p>
                     <p className="text-[7px] opacity-50 mt-1">
@@ -140,7 +140,7 @@ export default function Leaderboard({ inhabitants, theme, onSelectDeveloper }) {
           </div>
 
           {rankedCitizens.length === 0 && viewMode === "citizens" && (
-            <p className="p-3 text-[7px] opacity-40 text-center" style={{ fontFamily: "'Press Start 2P', cursive" }}>
+            <p className="p-3 text-[10px] opacity-40 text-center">
               No developers yet
             </p>
           )}
