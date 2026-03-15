@@ -8,9 +8,12 @@ export default function LoginButton() {
       <div className="flex flex-col items-end gap-2">
         <div className="flex items-center gap-3 bg-black/50 p-2 rounded-lg border border-white/10 backdrop-blur-md">
           <img 
-            src={session.user.image} 
+            src={session.user.image || `https://github.com/${session.githubUsername || session.user.name}.png`} 
             alt={session.user.name} 
-            className="w-8 h-8 rounded-full border border-green-400"
+            className="w-8 h-8 rounded-full border border-green-400 object-cover"
+            onError={(e) => {
+              e.target.src = "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y";
+            }}
           />
           <div className="text-left">
             <p className="text-white text-xs font-bold uppercase tracking-wider">{session.user.name}</p>

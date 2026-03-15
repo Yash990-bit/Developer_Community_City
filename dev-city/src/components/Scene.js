@@ -98,8 +98,11 @@ export default function Home() {
   useEffect(() => {
     async function handleLogin() {
       if (session && session.accessToken) {
-        // Fetch up-to-date stats from GitHub
-        const stats = await getGitHubStats(session.user.name, session.accessToken);
+        // Use githubUsername from session (fallback to name for mock login)
+        const usernameToFetch = session.githubUsername || session.user.name;
+        
+        console.log("Syncing city profile for:", usernameToFetch);
+        const stats = await getGitHubStats(usernameToFetch, session.accessToken);
         
         if (stats) {
           const newDeveloper = {

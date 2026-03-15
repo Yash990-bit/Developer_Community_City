@@ -38,7 +38,7 @@ export async function getGitHubStats(username, accessToken) {
     const userData = await userRes.json();
 
     // 2. Get Total Stars received and Languages
-    const reposRes = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`, { headers });
+    const reposRes = await fetch(`https://api.github.com/users/${githubUsername}/repos?per_page=100`, { headers });
     const reposData = await reposRes.json();
     
     let totalStars = 0;

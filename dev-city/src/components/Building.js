@@ -129,9 +129,19 @@ export default function Building({
           <Html distanceFactor={15}>
             <div className="bg-black/95 text-white p-3 rounded-sm border border-white/20 whitespace-nowrap pointer-events-none min-w-[140px]" 
                  style={{ fontSize: '10px', zIndex: 100 }}>
-              <div className="flex items-center gap-2 mb-2">
-                <span>{tier.emoji}</span>
-                <span className="text-blue-400">{github_username || "Citizen"}</span>
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-8 h-8 rounded-full border border-white/20 overflow-hidden bg-white/5 flex items-center justify-center">
+                  <img 
+                    src={devStats?.avatar || `https://github.com/${github_username}.png`} 
+                    alt={github_username}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.parentElement.innerHTML = '👤';
+                    }}
+                  />
+                </div>
+                <span className="text-blue-400 font-black">{github_username || "Citizen"}</span>
               </div>
               
               <div className="mb-2 px-1.5 py-0.5 text-center text-[5px] border" 

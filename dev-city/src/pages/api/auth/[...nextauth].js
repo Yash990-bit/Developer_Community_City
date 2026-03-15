@@ -30,14 +30,18 @@ export const authOptions = {
     error: '/auth/error'
   },
   callbacks: {
-    async jwt({ token, account }) {
+    async jwt({ token, account, profile }) {
       if (account) {
         token.accessToken = account.access_token;
+      }
+      if (profile) {
+        token.githubUsername = profile.login;
       }
       return token;
     },
     async session({ session, token }) {
       session.accessToken = token.accessToken;
+      session.githubUsername = token.githubUsername;
       session.user.id = token.sub;
       return session;
     },

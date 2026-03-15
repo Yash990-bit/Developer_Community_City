@@ -33,12 +33,15 @@ export default function DevProfile({ developer, onClose, theme }) {
         {/* Header */}
         <div className="flex flex-col items-center mb-6 mt-4">
           {/* GitHub Avatar */}
-          <div className="w-16 h-16 mb-4 border-2 border-current overflow-hidden rounded-sm">
+          <div className="w-16 h-16 mb-4 border-2 border-current overflow-hidden rounded-sm bg-indigo-500/10 flex items-center justify-center">
             <img 
-              src={`https://github.com/${developer.github_username}.png`} 
+              src={developer.stats?.avatar || `https://github.com/${developer.github_username}.png`} 
               alt={developer.github_username}
               className="w-full h-full object-cover"
-              style={{ imageRendering: "pixelated" }}
+              onError={(e) => {
+                e.target.style.display = 'none';
+                e.target.parentElement.innerHTML = '<span class="text-2xl">👤</span>';
+              }}
             />
           </div>
           <h2 className="text-sm uppercase tracking-widest text-center leading-relaxed">
